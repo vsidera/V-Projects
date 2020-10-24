@@ -1,0 +1,14 @@
+{% extends "projapp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h2 class="article-title">{{ object.title }}</h2>
+              <small class="text-muted">{{ object.created_on }}</small>
+            </div>
+            <img src="{{object.image.url}}" alt="Avatar" style="width:100%">
+            <p class="article-content">{{ object.description }}</p>
+            <p class="article-content">{{ object.live_link }}</p>
+          </div>
+        </article>
+{% endblock content %}
