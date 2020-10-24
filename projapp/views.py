@@ -3,13 +3,7 @@ from .models import Post, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView
-)
+from django.views.generic import (DetailView, UpdateView, DeleteView)
 from .forms import uploadForm
 
 def home(request):
@@ -20,15 +14,6 @@ def home(request):
 
 class PostDetailView(DetailView):
     model = Post
-
-
-# class PostCreateView(LoginRequiredMixin, CreateView):
-#     model = Post
-#     fields = ['title', 'image' ,'description']
-
-#     def form_valid(self, form):
-#         form.instance.profile = Profile.objects.get(user=self.request.user)
-#         return super().form_valid(form)
 
 @login_required(login_url='/login/')
 def new_post(request):
@@ -44,28 +29,12 @@ def new_post(request):
         form = uploadForm()
     return render(request, 'projapp/post_form.html', {'form':form})
 
-
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ['title', 'content']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
-
-
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
+        if self.request.user == post.profile.user:
             return True
         return False
