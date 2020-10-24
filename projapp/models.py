@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import PIL.Image
 
 # Create your models here.
 class Post(models.Model):
@@ -15,9 +16,19 @@ class Post(models.Model):
 class Profile(models.Model):
     ''' extended User model '''
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(default='default.jpg', upload_to='avatars/')
+    photo = models.ImageField(default='default.png', upload_to='avatars/')
     bio = models.TextField(max_length=500, blank=True, default=f'Hello, I am new here!')
     contacts = models.TextField(max_length=250, blank=True)
 
     def __str__(self):
         return f'{self.user.username} profile'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = PIL.Image.open(self.photo.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.photo.path)        
