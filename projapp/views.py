@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Post, Profile
+from .models import Post, Profile, Rating
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (DetailView, UpdateView, DeleteView)
-from .forms import uploadForm
+from django.views.generic.edit import FormMixin
+from .forms import uploadForm, ratingForm
 
 def home(request):
     context = {
@@ -12,8 +13,9 @@ def home(request):
     }
     return render(request, 'projapp/home.html', context)
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin,DetailView):
     model = Post
+    form_class = ratingForm
 
 @login_required(login_url='/login/')
 def new_post(request):
@@ -51,3 +53,22 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'projapp/search.html',{"message":message})        
+
+# @login_required(login_url='/login/')
+# def project(request):
+#     if request.method == 'POST':
+#         r_form = ratingForm(request.POST, instance=request.user)
+#         if r_form.is_valid():
+#             r_form.save()
+#             messages.success(request, f'Your rating has been updated!')
+#             return redirect('projapp-home')
+
+#     else:
+#         r_form = UserUpdateForm(instance=request.user)
+       
+
+#     context = {
+#         'r_form': r_form,
+#     }
+
+#     return render(request, 'projapp/post_detail.html', context)        
