@@ -38,7 +38,7 @@ body {
   }
   
   .article-title {
-    color: #444444;
+    color: hotpink;
   }
   
   a.article-title:hover {
@@ -93,4 +93,8 @@ body {
     flex-direction: row;
     width: 48%;
     padding: 2px;
+  }
+
+  .text-mute{
+    color: indigo;
   }
