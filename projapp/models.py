@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 import PIL.Image
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Post(models.Model):
     ''' a model for Project posts '''
     title = models.CharField(max_length=150)
-    image = models.ImageField(upload_to='images/')
+    image = CloudinaryField('image')
     live_link = models.URLField()
     description = models.TextField(blank=True)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)

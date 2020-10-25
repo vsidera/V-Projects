@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary',
     'projapp.apps.ProjappConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
@@ -133,3 +137,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'projapp-home'
 LOGIN_URL = 'login'
+
+cloudinary.config(
+  cloud_name = 'siderra',  
+  api_key = '575213331593564',  
+  api_secret = 'n0Xt_UrUvM6EmbmzRM04PpCR5Rs', 
+)
