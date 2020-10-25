@@ -3,21 +3,31 @@
 <div class="container">
 
   <div class="row">
-    {% if articles%}
-      <h2>Found {{ articles|length }} of searched term {{message}}</h2>
+    {% if projects%}
+      <h4>Found {{ projects|length }} of searched term {{message}}</h4>
     {% else %}
-      <h2> Found 0 articles for the search term {{message}}</h2>
+      <h4> Found 0 projects for the search term {{message}}</h4>
     {% endif %}
 
   </div>
 
   <div class="row">
 
-  {% if articles %}
-    {% for article in articles %}
-      <div class="col-sm-6 col-md-3">
-          <h5>{{article.title}}</h5>
-      </div>
+  {% if projects %}
+    {% for project in projects %}
+      
+          <div class="proj-item">
+            <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <h5><a class="article-title">{{ project.title }}</a></h5>
+                  <small class="text-mute">{{ project.created_on }}</small>
+                </div>
+                <img src="{{project.image.url}}" alt="Avatar" style="width:100%">
+              </div>
+            </article>
+          </div>  
+          
     {% endfor %}
   {% endif %}
   </div>

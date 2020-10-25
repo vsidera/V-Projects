@@ -30,6 +30,17 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'projapp-home' %}">Home</a>
             </div>
+             <!-- Adding a search form  -->
+            <div class="search">
+              <form role="search" action="{% url 'search_results' %}">
+
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search Project" name="project">
+                </div>
+
+              </form>
+            </div>  
+            <!-- search form end -->
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if user.is_authenticated %}

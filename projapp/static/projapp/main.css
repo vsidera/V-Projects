@@ -109,3 +109,16 @@ body {
     text-decoration: none;
     color: hotpink;
   }
+
+  .search{
+    width: 150px;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    align-content: center;
+}
+
+  .form-control{
+    border: 1px solid hotpink;
+  }
