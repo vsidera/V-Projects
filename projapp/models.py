@@ -12,6 +12,11 @@ class Post(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
+    @classmethod
+    def search_by_title(cls,search_term):
+        news = cls.objects.filter(title__icontains=search_term)
+        return news
+
 
 class Profile(models.Model):
     ''' extended User model '''
