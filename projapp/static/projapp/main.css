@@ -45,9 +45,15 @@ body {
     color: #428bca;
     text-decoration: none;
   }
+  .article-title-detail{
+    color: indigo;
+  }
   
   .article-content {
     white-space: pre-line;
+    color: black;
+    padding-top: 5px;
+    font-family: serif;
   }
   
   .article-img {
@@ -97,4 +103,9 @@ body {
 
   .text-mute{
     color: indigo;
+  }
+
+  .livelink{
+    text-decoration: none;
+    color: hotpink;
   }
