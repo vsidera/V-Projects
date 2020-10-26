@@ -17,6 +17,19 @@ class PostDetailView(FormMixin,DetailView):
     model = Post
     form_class = ratingForm
 
+    def rate_project(request):
+        if request.method == 'POST':
+            form = ratingForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.profile = current_user
+                post.save()
+            return redirect('projapp-home')
+        else:
+            form = uploadForm()
+        return render(request, 'projapp/post_detail.html', {'form':form})
+
+
 @login_required(login_url='/login/')
 def new_post(request):
     current_user = request.user.profile
@@ -54,21 +67,4 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'projapp/search.html',{"message":message})        
 
-# @login_required(login_url='/login/')
-# def project(request):
-#     if request.method == 'POST':
-#         r_form = ratingForm(request.POST, instance=request.user)
-#         if r_form.is_valid():
-#             r_form.save()
-#             messages.success(request, f'Your rating has been updated!')
-#             return redirect('projapp-home')
 
-#     else:
-#         r_form = UserUpdateForm(instance=request.user)
-       
-
-#     context = {
-#         'r_form': r_form,
-#     }
-
-#     return render(request, 'projapp/post_detail.html', context)        

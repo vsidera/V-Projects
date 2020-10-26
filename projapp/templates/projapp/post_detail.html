@@ -24,18 +24,18 @@
           <div class="col-md-4">
             <div>
               <form action="#" method="POST">
-                  <h2>VOTING FORM</h2>
+                  <h2>RATE PROJECT</h2>
                   {%csrf_token%}
                   <div class="form-row">
                       <div class="form-group col-md-6 mb-0">
                           {{form|crispy }}
                       </div>
                   </div>
-                  <input type="submit" class="btn btn-success" value="Post">
+                  <input type="button" class="btn btn-success" value="Post">
               </form>
   
               {% if average %} {% for total in average %} {{total.avg_interface}} {{total.avg_experience}} {{total.avg_content}} {% endfor %} {% else %}
-              <p>You are yet to vote on this project</p> {% endif %}
+              {% endif %}
           </div>
           </div>
         </div>
