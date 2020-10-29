@@ -31,7 +31,8 @@
                           {{form|crispy }}
                       </div>
                   </div>
-                  <input type="button" class="btn btn-success" value="Post">
+                  <!-- <input type="button" class="btn btn-success" value="Post"> -->
+                  <a class="btn btn-success" href="{% url 'projapp-home' %}">Post</a>
               </form>
   
               {% if average %} {% for total in average %} {{total.avg_interface}} {{total.avg_experience}} {{total.avg_content}} {% endfor %} {% else %}

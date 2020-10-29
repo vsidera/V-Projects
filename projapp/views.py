@@ -27,9 +27,10 @@ class PostDetailView(FormMixin,DetailView):
         if request.method == 'POST':
             form = ratingForm(request.POST)
             if form.is_valid():
-                # votes = form.save(commit=False)
-                # votes.profile = current_user
-                # votes.save()
+                votes = form.save(commit=False)
+                votes.profile = current_user
+                votes.save()
+                messages.success(request, f'Your vote has been recorded')
                 return redirect('projapp-home')
         else:
             form = ratingForm()
