@@ -8,8 +8,8 @@ from django.views.generic.edit import FormMixin
 from .forms import uploadForm, ratingForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import  Post
-from .serializer import PostSerializer
+from .models import  Post, Profile
+from .serializer import PostSerializer, ProfileSerializer
 
 def home(request):
     context = {
@@ -77,6 +77,12 @@ class PostList(APIView):
     def get(self, request, format=None):
         all_posts = Post.objects.all()
         serializers = PostSerializer(all_posts, many=True)
-        return Response(serializers.data)          
+        return Response(serializers.data)  
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_users = Profile.objects.all()
+        serializers = ProfileSerializer(all_users, many=True)
+        return Response(serializers.data)                      
 
 

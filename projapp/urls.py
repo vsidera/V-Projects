@@ -10,4 +10,5 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     url(r'^search/', views.search_results, name='search_results'),
     path('api/post/', views.PostList.as_view()),
+    path('api/user/', views.ProfileList.as_view()),
 ]
