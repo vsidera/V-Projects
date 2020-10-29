@@ -6,6 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (DetailView, UpdateView, DeleteView)
 from django.views.generic.edit import FormMixin
 from .forms import uploadForm, ratingForm
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import  Post
+from .serializer import PostSerializer
 
 def home(request):
     context = {
@@ -16,10 +20,27 @@ def home(request):
 class PostDetailView(FormMixin,DetailView):
     model = Post
     form_class = ratingForm
+    success_url = '/'
 
-    def rate_project(request):
+    def rateProject(request):
+        current_user = request.user.profile
         if request.method == 'POST':
             form = ratingForm(request.POST)
+            if form.is_valid():
+                # votes = form.save(commit=False)
+                # votes.profile = current_user
+                # votes.save()
+                return redirect('projapp-home')
+        else:
+            form = ratingForm()
+        return render(request, 'projapp/post_detail.html', {'form':form})
+
+
+@login_required(login_url='/login/')
+def new_post(request):
+        current_user = request.user.profile
+        if request.method == 'POST':
+            form = uploadForm(request.POST, request.FILES)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.profile = current_user
@@ -27,22 +48,7 @@ class PostDetailView(FormMixin,DetailView):
             return redirect('projapp-home')
         else:
             form = uploadForm()
-        return render(request, 'projapp/post_detail.html', {'form':form})
-
-
-@login_required(login_url='/login/')
-def new_post(request):
-    current_user = request.user.profile
-    if request.method == 'POST':
-        form = uploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.profile = current_user
-            post.save()
-        return redirect('projapp-home')
-    else:
-        form = uploadForm()
-    return render(request, 'projapp/post_form.html', {'form':form})
+        return render(request, 'projapp/post_form.html', {'form':form})
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
@@ -65,6 +71,12 @@ def search_results(request):
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'projapp/search.html',{"message":message})        
+        return render(request, 'projapp/search.html',{"message":message})      
+
+class PostList(APIView):
+    def get(self, request, format=None):
+        all_posts = Post.objects.all()
+        serializers = PostSerializer(all_posts, many=True)
+        return Response(serializers.data)          
 
 

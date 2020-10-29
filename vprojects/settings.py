@@ -30,6 +30,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'cloudinary',
     'projapp.apps.ProjappConfig',
     'users.apps.UsersConfig',
