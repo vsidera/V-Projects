@@ -2,7 +2,15 @@
 #### An application that allows users to post projects that will be reviewed by peers.
 #### By **victor siderra**
 ## Description
-As a developer you create a lot of projects but you never know how those projects rate with your peers. This application much like Awwards allows one to post their projects and have them reviewed .
+As a developer you create a lot of projects but you never know how those projects rate with your peers. 
+This application much like Awwards allows one to post their projects and have them reviewed .
+
+## API ENDPOINTS
+* Profile
+https://vprojects.herokuapp.com/api/user
+* Project
+https://vprojects.herokuapp.com/api/post 
+
 ## Setup/Installation Requirements
 * On your terminal, clone this repo using git
 * $ git clone https://github.com/vsidera/Vprojects.git
