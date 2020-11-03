@@ -7,6 +7,6 @@ class uploadForm(forms.ModelForm):
         exclude = ['profile', 'created_on']
 
 class ratingForm(forms.ModelForm):
-    class Meta:
+    class Meta: 
         model = Rating
         fields = ['interface', 'experience', 'content']        
